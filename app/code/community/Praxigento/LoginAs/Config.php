@@ -59,7 +59,7 @@ class Praxigento_LoginAs_Config
      */
     public static function canAccessCreatedBy()
     {
-        return filter_var(Mage::getSingleton('admin/session')->isAllowed('sales/customer/prxgt_lgas_created_by_access'), FILTER_VALIDATE_BOOLEAN);
+        return filter_var(Mage::getSingleton('admin/session')->isAllowed('sales/order/prxgt_lgas_created_by_access'), FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -68,7 +68,7 @@ class Praxigento_LoginAs_Config
      */
     public static function canAccessLoginAs()
     {
-        return filter_var(Mage::getSingleton('admin/session')->isAllowed('sales/customer/prxgt_lgas_access'), FILTER_VALIDATE_BOOLEAN);
+        return filter_var(Mage::getSingleton('admin/session')->isAllowed('customer/prxgt_lgas_access'), FILTER_VALIDATE_BOOLEAN);
     }
 
     /**

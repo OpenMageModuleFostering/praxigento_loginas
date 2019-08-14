@@ -23,7 +23,7 @@
 <config>
     <modules>
         <Praxigento_LoginAs>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </Praxigento_LoginAs>
     </modules>
     <admin>
@@ -71,7 +71,7 @@
                                         <!-- place ACL to config sections here -->
                                         <prxgt_lgas translate="title" module="prxgt_lgas_helper">
                                             <title>Praxigento: Login As Customer Section</title>
-                                            <sort_order>10600</sort_order>
+                                            <sort_order>600</sort_order>
                                         </prxgt_lgas>
                                     </children>
                                 </config>
