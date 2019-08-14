@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2013, Praxigento
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ * following conditions are met:
+ *  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ *      disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *      following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+-->
+<config>
+    <modules>
+        <Praxigento_LoginAs>
+            <version>1.0.0</version>
+        </Praxigento_LoginAs>
+    </modules>
+    <admin>
+        <routers>
+            <prxgt_lgas_router>
+                <use>admin</use>
+                <args>
+                    <module>Praxigento_LoginAs</module>
+                    <frontName>prxgt_lgas_admin</frontName>
+                </args>
+            </prxgt_lgas_router>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <sales>
+                            <children>
+                                <order>
+                                    <children>
+                                        <prxgt_lgas_created_by_access translate="title" module="prxgt_lgas_helper">
+                                            <title>Praxigento: 'Created by' access</title>
+                                            <sort_order>1024</sort_order>
+                                        </prxgt_lgas_created_by_access>
+                                    </children>
+                                </order>
+                            </children>
+                        </sales>
+                        <customer>
+                            <children>
+                                <!-- add entry under Customer section -->
+                                <prxgt_lgas_access translate="title" module="prxgt_lgas_helper">
+                                    <title>Praxigento: 'Login as Customer' access</title>
+                                    <sort_order>1024</sort_order>
+                                </prxgt_lgas_access>
+                            </children>
+                        </customer>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <!-- Section on the "System/Configuration" panel -->
+                                        <!-- place ACL to config sections here -->
+                                        <prxgt_lgas translate="title" module="prxgt_lgas_helper">
+                                            <title>Praxigento: Login As Customer Section</title>
+                                            <sort_order>10600</sort_order>
+                                        </prxgt_lgas>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <events>
+            <adminhtml_block_html_before>
+                <observers>
+                    <prxgt_lgas_observer>
+                        <type>singleton</type>
+                        <class>prxgt_lgas_model/observer</class>
+                        <method>onAdminhtmlBlockHtmlBefore</method>
+                    </prxgt_lgas_observer>
+                </observers>
+            </adminhtml_block_html_before>
+            <adminhtml_widget_container_html_before>
+                <observers>
+                    <prxgt_lgas_observer>
+                        <type>singleton</type>
+                        <class>prxgt_lgas_model/observer</class>
+                        <method>onAdminhtmlWidgetContainerHtmlBefore</method>
+                    </prxgt_lgas_observer>
+                </observers>
+            </adminhtml_widget_container_html_before>
+        </events>
+        <layout>
+            <updates>
+                <prxgt_lgas_layout_admin>
+                    <file>prxgt/lgas/loginas_adminhtml_layout.xml</file>
+                </prxgt_lgas_layout_admin>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <prxgt_lgas>
+                    <files>
+                        <default>prxgt/lgas/prxgt_lgas.csv</default>
+                    </files>
+                </prxgt_lgas>
+            </modules>
+        </translate>
+    </adminhtml>
+    <frontend>
+        <routers>
+            <prxgt_lgas_router>
+                <use>standard</use>
+                <args>
+                    <module>Praxigento_LoginAs</module>
+                    <frontName>prxgt_lgas_front</frontName>
+                </args>
+            </prxgt_lgas_router>
+        </routers>
+    </frontend>
+    <global>
+        <events>
+            <sales_convert_quote_address_to_order>
+                <observers>
+                    <prxgt_lgas_observer>
+                        <type>singleton</type>
+                        <class>prxgt_lgas_model/observer</class>
+                        <method>onSalesConvertQuoteAddressToOrder</method>
+                    </prxgt_lgas_observer>
+                </observers>
+            </sales_convert_quote_address_to_order>
+        </events>
+        <helpers>
+            <!-- Default helper for module (prevents errors like "Class 'Namespace_Module_Helper_Data' not found in") -->
+            <prxgt_lgas_helper>
+                <class>Praxigento_LoginAs_Helper</class>
+            </prxgt_lgas_helper>
+        </helpers>
+        <models>
+            <prxgt_lgas_model>
+                <class>Praxigento_LoginAs_Model</class>
+            </prxgt_lgas_model>
+        </models>
+        <resources>
+            <prxgt_lgas_setup>
+                <setup>
+                    <module>Praxigento_LoginAs</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </prxgt_lgas_setup>
+        </resources>
+    </global>
+</config>

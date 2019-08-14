@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>Praxigento_LoginAs</name>
+    <version>1.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/apachepl-1.1.php">ASF</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Login as Customer by Praxigento</summary>
+    <description>Allows store manager to login as a customer right from admin panel. No need for master password.</description>
+    <notes>Hello World! :)</notes>
+    <authors><author><name>Alex Gusev</name><user>praxigento</user><email>info@flancer.lv</email></author></authors>
+    <date>2013-02-28</date>
+    <time>08:54:50</time>
+    <contents><target name="magecommunity"><dir name="Praxigento"><dir name="LoginAs"><file name="Config.php" hash="47ab33ba8197f2e952db00ee60a64e86"/><dir name="Helper"><file name="Data.php" hash="8953db573e1a359cce3177741a166024"/></dir><dir name="Model"><file name="Logger.php" hash="04ddc399d206a4f9c1c5f6088c8ad811"/><file name="Observer.php" hash="3b3e9128dfe7883344380956faff175c"/><file name="Package.php" hash="1c945f7061451eaec17ca7ba15d03590"/></dir><dir name="Test"><file name="ConfigTest.php" hash="bce99007796d30ee4086eba5a5c1fb08"/><dir name="Model"><file name="LoggerTest.php" hash="6f45e5a49612305912fd1fce72734008"/></dir><file name="phpunit.bootstrap.php" hash="b27a8bb387f22af87d3505d1ef6c0325"/><file name="phpunit.praxigento.loginas.xml" hash="8fdc08af610b56397ce4a026bbf1bf71"/></dir><dir name="controllers"><file name="LoginController.php" hash="bbb4de789aaec13af2f191a2015c728a"/><file name="RedirectController.php" hash="05133cd77c2d0cb9a99fe840d7247e73"/></dir><dir name="etc"><file name="config.xml" hash="8be7ad2f46c5d38ae4e5b743391e674f"/><file name="system.xml" hash="061cc6ca4787a71a07c6844c2efd7bf9"/></dir><dir name="sql"><dir name="prxgt_lgas_setup"><file name="mysql4-install-1.0.0.php" hash="e411ae4ef99146b606ddcdaf49020f8b"/><file name="prxgt_install_func.php" hash="17e7e7f7ac12da3c31eeb7ba37c3d524"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><dir name="prxgt"><dir name="lgas"><file name="loginas_adminhtml_layout.xml" hash="1c738335b661f3f5d68fa81520bd5d7a"/></dir></dir></dir><dir name="template"><dir name="prxgt"><dir name="lgas"><file name="redirect.phtml" hash="ccda9df924c7a0e79fdf85c163890674"/></dir></dir></dir></dir></dir></dir></target><target name="magelocale"><dir name="en_US"><dir name="prxgt"><dir name="lgas"><file name="prxgt_lgas.csv" hash="fa4a8396c84de6c3585b87d13c882085"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Praxigento_LoginAs.xml" hash="bbff13b9b95dfa4d1dd28bd2e25f74a3"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

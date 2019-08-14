@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Praxigento_LoginAs",
+    "type": "magento-module",
+    "license": "ASF",
+    "homepage": "",
+    "description": "Login as Customer by Praxigento",
+    "authors": [
+    {
+        "name": "Alex Gusev",
+        "email": "info@flancer.lv"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

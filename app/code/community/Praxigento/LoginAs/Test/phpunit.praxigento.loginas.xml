@@ -1,0 +1,10 @@
+<phpunit bootstrap="phpunit.bootstrap.php">
+    <testsuites>
+        <testsuite name="Praxigento_LoginAs">
+            <directory>.</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <includePath>../../../../../</includePath>
+    </php>
+</phpunit>
