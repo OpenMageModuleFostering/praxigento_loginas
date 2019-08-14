@@ -26,7 +26,9 @@
     <!-- ... [nmmlm_core_router]_[sync_products]_[index]                                 -->
     <!-- ... Nmmlm/Core/controllers/Sync/ProductsController.php:indexAction()           -->
     <!-- ****************************************************************************** -->
-    <prxgt_lgas_router_redirect_index>
-        <block type="adminhtml/template" name="root" template="prxgt/lgas/redirect.phtml"/>
-    </prxgt_lgas_router_redirect_index>
+    <adminhtml_redirect_index>
+        <!--block prints out HTML code directly, without any templates. -->
+        <block type="prxgt_lgas_block/adminhtml_redirect" name="root"/>
+    </adminhtml_redirect_index>
+
 </layout>

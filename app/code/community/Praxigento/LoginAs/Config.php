@@ -50,7 +50,7 @@ class Praxigento_LoginAs_Config
     /******************************************************************************************
      *                            Module's config.xml parameters
      *****************************************************************************************/
-    const XMLCFG_ROUTER_ADMIN = 'prxgt_lgas_admin';
+    const XMLCFG_ROUTER_ADMIN = 'adminhtml';
     const XMLCFG_ROUTER_FRONT = 'prxgt_lgas_front';
 
     /**

@@ -52,8 +52,10 @@ class Praxigento_LoginAs_RedirectController extends Mage_Adminhtml_Controller_Ac
                             $customerName = $customer->getName();
                             /** define URL to login to customer's website */
                             $wsId = $customer->getData('website_id');
-                            if (is_null($wsId)) {
-                                $wsId = Mage::app()->getStore()->getWebsiteId();
+                            if (!$wsId) {
+                                /* 'null' or '0' - adminhtml */
+                                $defStoreView = Mage::app()->getDefaultStoreView();
+                                $wsId = $defStoreView->getWebsiteId();
                             }
                             /** @var $website Mage_Core_Model_Website */
                             $website = Mage::getModel('core/website')->load($wsId);
@@ -85,7 +87,6 @@ class Praxigento_LoginAs_RedirectController extends Mage_Adminhtml_Controller_Ac
                             $log->trace("Operator '$operator' is redirected to front from ip '$ip' to login" .
                                 " as customer '$customerName' ($customerId).");
                         }
-                        $bu = var_export($this->getLayout()->getUpdate()->getHandles(), true);
                         /** load layout and render blocks */
                         $this->loadLayout()->renderLayout();
                     }

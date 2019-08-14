@@ -1,3 +1,10 @@
+1.2.2:
+- Fix redirection failure on disabled "Admin routing compatibility mode for extensions" option (Config / Advanced /
+Admin / Security /...);
+
+1.2.1:
+- https://magento.stackexchange.com/questions/15029/login-as-customer-problem
+
 1.2.0:
 - Controllers fix (_isAllowed);
 - Auto installation with sample data generation in development version;

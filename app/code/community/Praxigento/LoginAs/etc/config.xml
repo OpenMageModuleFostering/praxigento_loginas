@@ -23,18 +23,19 @@
 <config>
     <modules>
         <Praxigento_LoginAs>
-            <version>1.2.0</version>
+            <version>1.2.2</version>
         </Praxigento_LoginAs>
     </modules>
     <admin>
         <routers>
-            <prxgt_lgas_router>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Praxigento_LoginAs</module>
-                    <frontName>prxgt_lgas_admin</frontName>
+                    <modules>
+                        <!-- LGAS-27 -->
+                        <Praxigento_LoginAs before="Mage_Adminhtml">Praxigento_LoginAs</Praxigento_LoginAs>
+                    </modules>
                 </args>
-            </prxgt_lgas_router>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>
@@ -137,6 +138,11 @@
         </layout>
     </frontend>
     <global>
+        <blocks>
+            <prxgt_lgas_block>
+                <class>Praxigento_LoginAs_Block</class>
+            </prxgt_lgas_block>
+        </blocks>
         <events>
             <sales_convert_quote_address_to_order>
                 <observers>

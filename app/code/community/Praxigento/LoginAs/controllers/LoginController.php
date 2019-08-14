@@ -61,6 +61,7 @@ class Praxigento_LoginAs_LoginController extends Mage_Core_Controller_Front_Acti
             } else {
                 /** establish new customer session */
                 $validatorData = $session->getValidatorData();
+                Mage::getSingleton('checkout/session')->setQuote(Mage::getModel('sales/quote'));
                 if ($this->getRequest()->isPost() && ($operatorIp == $validatorData['remote_addr'])) {
                     try {
                         /** @var $customer Mage_Customer_Model_Customer */
