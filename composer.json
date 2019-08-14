@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/Praxigento_LoginAs",
     "type": "magento-module",
-    "license": "ASF",
+    "license": "Apache-Software-License",
     "homepage": "",
     "description": "Login as Customer by Praxigento",
     "authors": [
     {
         "name": "Alex Gusev",
-        "email": "info@flancer.lv"
+        "email": "support@praxigento.com"
     }
 ],
     "suggest": {

@@ -28,78 +28,86 @@
 class Praxigento_LoginAs_Model_Package extends Varien_Object
 {
     const PREFIX = 'las';
-
     /** @var string administrator's name to be displayed in orders grid and logs */
-    private $adminName;
-    private $customerId;
-    private $customerName;
+    private $_adminName;
+    private $_customerId;
+    private $_customerName;
+    private $_ip;
     /** @var string ID of the package */
-    private $packageId;
+    private $_packageId;
     /** @var string URL to use on form to redirect admin to the customer's website */
-    private $redirectUrl;
+    private $_redirectUrl;
 
-
-    public function setCustomerId($customerId)
+    public function getAdminName()
     {
-        $this->customerId = $customerId;
+        return $this->_adminName;
+    }
+
+    public function setAdminName($adminName)
+    {
+        $this->_adminName = $adminName;
     }
 
     public function getCustomerId()
     {
-        return $this->customerId;
+        return $this->_customerId;
     }
 
-    private $ip;
-
-    public function setAdminName($adminName)
+    public function setCustomerId($customerId)
     {
-        $this->adminName = $adminName;
-    }
-
-    public function getAdminName()
-    {
-        return $this->adminName;
-    }
-
-    public function setCustomerName($customerName)
-    {
-        $this->customerName = $customerName;
+        $this->_customerId = $customerId;
     }
 
     public function getCustomerName()
     {
-        return $this->customerName;
+        return $this->_customerName;
     }
 
-    public function setIp($ip)
+    public function setCustomerName($customerName)
     {
-        $this->ip = $ip;
+        $this->_customerName = $customerName;
     }
 
     public function getIp()
     {
-        return $this->ip;
+        return $this->_ip;
+    }
+
+    public function setIp($ip)
+    {
+        $this->_ip = $ip;
     }
 
     /**
-     * Saves login data into file in the temporary directory and returns name of the tmp file including extension.
      * @return string
      */
-    public function saveAsFile()
+    public function getPackageId()
     {
-        // generate unique filename and create file to save login data
-        $fname           = tempnam(sys_get_temp_dir(), self::PREFIX);
-        $path_parts      = pathinfo($fname);
-        $this->packageId = $path_parts['basename'];
-        $handle          = fopen($fname, "w");
-        // write login data to file
-        $content = $this->adminName . "\n";
-        $content .= $this->customerId . "\n";
-        $content .= $this->customerName . "\n";
-        $content .= $this->ip . "\n";
-        fwrite($handle, $content);
-        fclose($handle);
-        return $this->packageId;
+        return $this->_packageId;
+    }
+
+    /**
+     * @param string $packageId
+     */
+    public function setPackageId($packageId)
+    {
+        $this->_packageId = $packageId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->_redirectUrl;
+    }
+
+    /**
+     * @param string $redirectUrl
+     */
+    public function setRedirectUrl($redirectUrl)
+    {
+        $this->_redirectUrl = $redirectUrl;
     }
 
     /**
@@ -109,51 +117,38 @@ class Praxigento_LoginAs_Model_Package extends Varien_Object
     public function loadFromFile($filename)
     {
         // load data
-        $this->packageId = $filename;
-        $fname           = sys_get_temp_dir() . DS . $this->packageId;
-        $data            = file($fname);
+        $this->_packageId = $filename;
+        $fname            = sys_get_temp_dir() . DS . $this->_packageId;
+        $data             = file($fname);
         if (is_array($data) && sizeof($data >= 4)) {
-            $this->adminName    = trim($data[0]);
-            $this->customerId   = trim($data[1]);
-            $this->customerName = trim($data[2]);
-            $this->ip           = trim($data[3]);
+            $this->_adminName    = trim($data[0]);
+            $this->_customerId   = trim($data[1]);
+            $this->_customerName = trim($data[2]);
+            $this->_ip           = trim($data[3]);
         }
         // remove file
         unlink($fname);
-        $this->packageId = null;
+        $this->_packageId = null;
     }
 
     /**
-     * @param string $packageId
-     */
-    public function setPackageId($packageId)
-    {
-        $this->packageId = $packageId;
-    }
-
-    /**
+     * Saves login data into file in the temporary directory and returns name of the tmp file including extension.
      * @return string
      */
-    public function getPackageId()
+    public function saveAsFile()
     {
-        return $this->packageId;
+        // generate unique filename and create file to save login data
+        $fname            = tempnam(sys_get_temp_dir(), self::PREFIX);
+        $pathParts        = pathinfo($fname);
+        $this->_packageId = $pathParts['basename'];
+        $handle           = fopen($fname, "w");
+        // write login data to file
+        $content = $this->_adminName . "\n";
+        $content .= $this->_customerId . "\n";
+        $content .= $this->_customerName . "\n";
+        $content .= $this->_ip . "\n";
+        fwrite($handle, $content);
+        fclose($handle);
+        return $this->_packageId;
     }
-
-    /**
-     * @param string $redirectUrl
-     */
-    public function setRedirectUrl($redirectUrl)
-    {
-        $this->redirectUrl = $redirectUrl;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRedirectUrl()
-    {
-        return $this->redirectUrl;
-    }
-
-
 }

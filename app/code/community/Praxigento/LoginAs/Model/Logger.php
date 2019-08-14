@@ -27,20 +27,19 @@
 class Praxigento_LoginAs_Model_Logger
 {
     /** @var bool 'true' - Log4php logging framework is used. */
-    private static $isLog4phpUsed = null;
-    /** @var string name for the current logger */
-    private $name;
+    private static $_isLog4phpUsed = null;
     /** @var Logger */
-    private $loggerLog4php;
-
+    private $_loggerLog4php;
+    /** @var string name for the current logger */
+    private $_name;
 
     function __construct($name)
     {
-        self::$isLog4phpUsed = class_exists('Nmmlm_Log_Logger', false);
-        if (self::$isLog4phpUsed) {
-            $this->loggerLog4php = Nmmlm_Log_Logger::getLogger($name);
+        self::$_isLog4phpUsed = class_exists('Nmmlm_Log_Logger', false);
+        if (self::$_isLog4phpUsed) {
+            $this->_loggerLog4php = Nmmlm_Log_Logger::getLogger($name);
         } else {
-            $this->name = is_object($name) ? get_class($name) : (string)$name;
+            $this->_name = is_object($name) ? get_class($name) : (string)$name;
         }
     }
 
@@ -57,45 +56,9 @@ class Praxigento_LoginAs_Model_Logger
         return new Praxigento_LoginAs_Model_Logger($name);
     }
 
-    /**
-     * Internal dispatcher for the called log method.
-     * @param $message
-     * @param $throwable
-     * @param $log4phpMethod
-     * @param $zendLevel
-     */
-    private function doLog($message, $throwable, $log4phpMethod, $zendLevel)
-    {
-        if (Praxigento_LoginAs_Config::cfgGeneralLogEvents()) {
-            if (self::$isLog4phpUsed) {
-                $this->loggerLog4php->$log4phpMethod($message, $throwable);
-            } else {
-                Mage::log($this->name . ': ' . $message, $zendLevel);
-                if ($throwable instanceof Exception) {
-                    Mage::logException($throwable);
-                }
-            }
-        }
-    }
-
-    public function trace($message, $throwable = null)
-    {
-        $this->doLog($message, $throwable, 'trace', Zend_Log::DEBUG);
-    }
-
     public function debug($message, $throwable = null)
     {
         $this->doLog($message, $throwable, 'debug', Zend_Log::INFO);
-    }
-
-    public function info($message, $throwable = null)
-    {
-        $this->doLog($message, $throwable, 'info', Zend_Log::NOTICE);
-    }
-
-    public function warn($message, $throwable = null)
-    {
-        $this->doLog($message, $throwable, 'warn', Zend_Log::WARN);
     }
 
     public function error($message, $throwable = null)
@@ -106,5 +69,41 @@ class Praxigento_LoginAs_Model_Logger
     public function fatal($message, $throwable = null)
     {
         $this->doLog($message, $throwable, 'fatal', Zend_Log::CRIT);
+    }
+
+    public function info($message, $throwable = null)
+    {
+        $this->doLog($message, $throwable, 'info', Zend_Log::NOTICE);
+    }
+
+    public function trace($message, $throwable = null)
+    {
+        $this->doLog($message, $throwable, 'trace', Zend_Log::DEBUG);
+    }
+
+    public function warn($message, $throwable = null)
+    {
+        $this->doLog($message, $throwable, 'warn', Zend_Log::WARN);
+    }
+
+    /**
+     * Internal dispatcher for the called log method.
+     * @param $message
+     * @param $throwable
+     * @param $log4phpMethod
+     * @param $zendLevel
+     */
+    private function doLog($message, $throwable, $log4phpMethod, $zendLevel)
+    {
+        if (Praxigento_LoginAs_Config::cfgGeneralLogEvents()) {
+            if (self::$_isLog4phpUsed) {
+                $this->_loggerLog4php->$log4phpMethod($message, $throwable);
+            } else {
+                Mage::log($this->_name . ': ' . $message, $zendLevel);
+                if ($throwable instanceof Exception) {
+                    Mage::logException($throwable);
+                }
+            }
+        }
     }
 }

@@ -30,23 +30,23 @@ class Praxigento_LoginAs_Config
      *****************************************************************************************/
     const ATTR_ORDER_CREATED_BY = 'prxgt_lgas_created_by';
     /******************************************************************************************
-     *                                   UI components
-     *****************************************************************************************/
-    const UI_BTN_LOGIN_AS = 'prxgt_lgas_button';
-    /******************************************************************************************
      *                           POST/GET request parameters
      *****************************************************************************************/
     /** don't change value: see Observer/doCustomerGridActionAdd() */
-    const REQ_PARAM_LAS_ID = 'id';
+    const REQ_PARAM_LAS_ID       = 'id';
+    const ROUTE_CUSTOMER_LOGINAS = '/login/as/';
     /******************************************************************************************
      *                            Routing (/[ctrl]/[action])
      *****************************************************************************************/
-    const ROUTE_REDIRECT         = '/redirect/';
-    const ROUTE_CUSTOMER_LOGINAS = '/login/as/';
+    const ROUTE_REDIRECT = '/redirect/';
     /** **************************************************************************************
      *                                Session parameters
      ************************************************************************************** */
     const SESS_LOGGED_AS_OPERATOR = 'prxgtLoggedInAsOperator';
+    /******************************************************************************************
+     *                                   UI components
+     *****************************************************************************************/
+    const UI_BTN_LOGIN_AS = 'prxgt_lgas_button';
     /******************************************************************************************
      *                            Module's config.xml parameters
      *****************************************************************************************/
@@ -89,7 +89,6 @@ class Praxigento_LoginAs_Config
         return filter_var(Mage::getStoreConfig('prxgt_lgas/general/log_events'), FILTER_VALIDATE_BOOLEAN);
     }
 
-
     /**
      * Display or not 'Login as Customer' action on the customers grid.
      * @return bool
@@ -117,7 +116,6 @@ class Praxigento_LoginAs_Config
         $val = Mage::getStoreConfig('prxgt_lgas/ui/orders_grid_column_position');
         return (is_null($val)) ? 5 : (int)$val;
     }
-
 
     /**
      * Returns default helper for the module.

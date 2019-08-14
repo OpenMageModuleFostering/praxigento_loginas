@@ -18,6 +18,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 /**
  * User: Alex Gusev <flancer64@gmail.com>
  * Date: 2/20/13
@@ -25,6 +26,13 @@
  */
 class Praxigento_LoginAs_LoginController extends Mage_Core_Controller_Front_Action
 {
+
+    protected function _isAllowed()
+    {
+        $result = Praxigento_LoginAs_Config::canAccessLoginAs();
+        return $result;
+    }
+
     public function asAction()
     {
         /** event logger */
@@ -39,11 +47,11 @@ class Praxigento_LoginAs_LoginController extends Mage_Core_Controller_Front_Acti
         if (!is_null($customerId)) {
             $customerName = $authPack->getCustomerName();
             $operatorName = $authPack->getAdminName();
-            $operatorIp   = $authPack->getIp();
+            $operatorIp = $authPack->getIp();
             $log->trace("Operator '$operatorName' trying to login as '$customerName' (id=$customerId) from ip '$operatorIp'...");
             /** validate current customer's session or  establish new session and validate request */
-            $session           = Mage::getSingleton('customer/session');
-            $sessionCustomer   = $session->getCustomer();
+            $session = Mage::getSingleton('customer/session');
+            $sessionCustomer = $session->getCustomer();
             $sessionCustomerId = $sessionCustomer->getId();
             /** this operator is already logged in as required customer */
             if (($session->isLoggedIn()) && ($customerId == $sessionCustomerId)) {
@@ -59,8 +67,8 @@ class Praxigento_LoginAs_LoginController extends Mage_Core_Controller_Front_Acti
                         $customer = Mage::getModel('customer/customer')->load($customerId);
                         if ($customer->getId() == $customerId) {
                             /** check allowed websites */
-                            $wsId     = Mage::app()->getStore()->getWebsiteId();
-                            $wsids    = $customer->getSharedWebsiteIds();
+                            $wsId = Mage::app()->getStore()->getWebsiteId();
+                            $wsids = $customer->getSharedWebsiteIds();
                             $custWsId = $customer->getData('website_id');
                             if (
                                 (in_array($wsId, $wsids)) ||

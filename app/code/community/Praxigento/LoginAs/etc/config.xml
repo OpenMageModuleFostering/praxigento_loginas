@@ -23,7 +23,7 @@
 <config>
     <modules>
         <Praxigento_LoginAs>
-            <version>1.0.1</version>
+            <version>1.2.0</version>
         </Praxigento_LoginAs>
     </modules>
     <admin>
@@ -104,7 +104,7 @@
         <layout>
             <updates>
                 <prxgt_lgas_layout_admin>
-                    <file>prxgt/lgas/loginas_adminhtml_layout.xml</file>
+                    <file>prxgt/lgas/adminhtml_layout.xml</file>
                 </prxgt_lgas_layout_admin>
             </updates>
         </layout>
@@ -128,6 +128,13 @@
                 </args>
             </prxgt_lgas_router>
         </routers>
+        <layout>
+            <updates>
+                <prxgt_lgas_layout_front>
+                    <file>prxgt/lgas/frontend_layout.xml</file>
+                </prxgt_lgas_layout_front>
+            </updates>
+        </layout>
     </frontend>
     <global>
         <events>

@@ -1,6 +1,7 @@
-<?php
+<?xml version="1.0"?>
+<!-- 
 /**
- * Copyright (c) 2013, Praxigento
+ * Copyright (c) 2015, Praxigento
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
@@ -18,28 +19,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/**
- * Initial installation script. Contains all upgrades
- */
-const SQL_TYPE_VARCHAR = 'VARCHAR(255) DEFAULT NULL';
-
-/** @var $installer Mage_Core_Model_Resource_Setup */
-$installer = $this;
-/** @var $coreSetup Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
-$coreSetup = new Mage_Eav_Model_Entity_Setup('core_setup');
-/** @var $conn Varien_Db_Adapter_Interface */
-$conn = $installer->getConnection();
-
-/** ****************************************************************************************************************
- * Create table columns for static attributes
- ***************************************************************************************************************** */
-
-/** Sales Order */
-$conn->addColumn($this->getTable('sales/order'),
-    Praxigento_LoginAs_Config::ATTR_ORDER_CREATED_BY, SQL_TYPE_VARCHAR . ' ' .
-        'COMMENT \'admin name/email if Praxigento Login As feature was used.\'');
-
-/** Sales Order */
-$conn->addColumn($this->getTable('sales/order_grid'),
-    Praxigento_LoginAs_Config::ATTR_ORDER_CREATED_BY, SQL_TYPE_VARCHAR . ' ' .
-        'COMMENT \'admin name/email if Praxigento Login As feature was used.\'');
+-->
+<layout version="0.1.0">
+    <!-- ****************************************************************************** -->
+    <!-- Handler name ([router][controller][action]):                                    -->
+    <!-- ... [nmmlm_core_router]_[sync_products]_[index]                                 -->
+    <!-- ... Nmmlm/Core/controllers/Sync/ProductsController.php:indexAction()           -->
+    <!-- ****************************************************************************** -->
+    <prxgt_lgas_front_front_login_as>
+        <block type="adminhtml/template" name="root"/>
+    </prxgt_lgas_front_front_login_as>
+</layout>

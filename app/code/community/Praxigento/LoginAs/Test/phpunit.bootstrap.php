@@ -1,30 +1,29 @@
 <?php
 /**
- * Copyright (c) 2012, Praxigento
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
- * following conditions are met:
- *  - Redistributions of source code must retain the above copyright notice, this list of conditions and the following
- *      disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
- *      following disclaimer in the documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Traverse up and lookup for the './mage/' folder to add to 'include_path'.
  */
-/**
- * Bootstrap file for PHPUnit tests.
- * User: Alex Gusev <flancer64@gmail.com>
- * Date: 2013/02/18
- */
-/** Load 'Mage' class to enable Magento autoloading. */
-require_once '../../../../../Mage.php';
-// buffer output to prevent errors when test suite is running.
-ob_start();
-?>
+// Set custom memory limit
+ini_set('memory_limit', '512M');
+// Magento root folder name (see "magento-root-dir" extra var in test/composer.json)
+$mageRoot = 'mage';
+// Magento main file relative to the Magento root.
+$mageApp = 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
+// Directory of the current file (phpunit_bootstrap.php)
+$path = __DIR__;
+// Clear cache for file_exists()
+clearstatcache();
+for($i = 0; $i < 32; $i++) {
+    $pathToMage = $path . DIRECTORY_SEPARATOR . $mageRoot . DIRECTORY_SEPARATOR . $mageApp;
+    if(file_exists($pathToMage)) {
+        $ini_set = ini_get('include_path') . PATH_SEPARATOR . $path . DIRECTORY_SEPARATOR . $mageRoot;
+        ini_set('include_path', $ini_set);
+        require_once $mageApp;
+        break;
+    } else {
+        $path = dirname($path);
+    }
+}
+// Start Magento application
+Mage::app('default');
+//Avoid issues "Headers already send"
+session_start();

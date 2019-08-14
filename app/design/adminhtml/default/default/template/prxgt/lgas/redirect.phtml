@@ -33,12 +33,12 @@ $authPack = Mage::getSingleton('prxgt_lgas_model/package');
 ?>
 <html>
 <body>
-<form action="<?php echo $authPack->getRedirectUrl() ?>"
+<form action="<?php echo htmlentities($authPack->getRedirectUrl()) ?>"
       method="post" id="login-form">
-    <?php /** Post file name with login parameters */?>
+    <?php /** Post file name with login parameters */ ?>
     <input type="hidden" name="<?php echo Praxigento_LoginAs_Config::REQ_PARAM_LAS_ID ?>"
            id="<?php echo Praxigento_LoginAs_Config::REQ_PARAM_LAS_ID ?>"
-           value="<?php echo $authPack->getPackageId() ?>"/>
+           value="<?php echo htmlentities($authPack->getPackageId()) ?>"/>
 </form>
 <script type="text/javascript">
     //<![CDATA[

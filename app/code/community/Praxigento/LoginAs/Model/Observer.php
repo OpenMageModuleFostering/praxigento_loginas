@@ -26,6 +26,22 @@
 class Praxigento_LoginAs_Model_Observer extends Varien_Object
 {
     /**
+     * Extend UI blocks.
+     * @param Varien_Event_Observer $observer
+     */
+    public function onAdminhtmlBlockHtmlBefore(Varien_Event_Observer $observer)
+    {
+        if (Praxigento_LoginAs_Config::cfgGeneralEnabled()) {
+            $block = $observer->getData('block');
+            if ($block instanceof Mage_Adminhtml_Block_Customer_Grid) {
+                $this->doCustomerGridActionAdd($block);
+            } elseif ($block instanceof Mage_Adminhtml_Block_Sales_Order_Grid) {
+                $this->doOrderGridColumnAdd($block);
+            }
+        }
+    }
+
+    /**
      * Adds 'Login As' button to the customer form.
      * @param Varien_Event_Observer $observer
      */
@@ -48,6 +64,7 @@ class Praxigento_LoginAs_Model_Observer extends Varien_Object
                         Praxigento_LoginAs_Config::XMLCFG_ROUTER_ADMIN . Praxigento_LoginAs_Config::ROUTE_REDIRECT,
                         array(
                             Praxigento_LoginAs_Config::REQ_PARAM_LAS_ID => $customerId,
+                            '_cache_secret_key', true /* NB-547 */
                         )
                     );
                     /** create UI button */
@@ -65,7 +82,6 @@ class Praxigento_LoginAs_Model_Observer extends Varien_Object
         }
     }
 
-
     /**
      * Add 'created by' data to order.
      *
@@ -82,22 +98,6 @@ class Praxigento_LoginAs_Model_Observer extends Varien_Object
                 $order->setData(Praxigento_LoginAs_Config::ATTR_ORDER_CREATED_BY, $operator);
             } else {
                 $order->setData(Praxigento_LoginAs_Config::ATTR_ORDER_CREATED_BY, '[Customer]');
-            }
-        }
-    }
-
-    /**
-     * Extend UI blocks.
-     * @param Varien_Event_Observer $observer
-     */
-    public function onAdminhtmlBlockHtmlBefore(Varien_Event_Observer $observer)
-    {
-        if (Praxigento_LoginAs_Config::cfgGeneralEnabled()) {
-            $block = $observer->getData('block');
-            if ($block instanceof Mage_Adminhtml_Block_Customer_Grid) {
-                $this->doCustomerGridActionAdd($block);
-            } elseif ($block instanceof Mage_Adminhtml_Block_Sales_Order_Grid) {
-                $this->doOrderGridColumnAdd($block);
             }
         }
     }
@@ -144,8 +144,8 @@ class Praxigento_LoginAs_Model_Observer extends Varien_Object
             Praxigento_LoginAs_Config::canAccessCreatedBy()
         ) {
             /** define position for the column */
-            $pos  = Praxigento_LoginAs_Config::cfgUiOrdersGridColumnPosition();
-            $curr = 0;
+            $pos   = Praxigento_LoginAs_Config::cfgUiOrdersGridColumnPosition();
+            $curr  = 0;
             $after = $grid->getLastColumnId();
             foreach ($grid->getColumns() as $key => $value) {
                 $after = $key;

@@ -19,39 +19,31 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /**
+ * Created by JetBrains PhpStorm.
  * User: Alex Gusev <flancer64@gmail.com>
  * Date: 2/18/13
  * Time: 6:05 PM
  */
-class Praxigento_LoginAs_Test_Model_LoggerTest extends PHPUnit_Framework_TestCase
+class Praxigento_LoginAs_Test_ConfigTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
-     */
-    protected function setUp()
+    public function testCfg()
     {
-        if (!class_exists('Mage')) {
-            require_once '../../../../../../Mage.php';
-        }
-        Mage::app();
+        // System / Configuration
+        // general
+        $this->assertTrue(is_bool(Praxigento_LoginAs_Config::cfgGeneralEnabled()));
+        $this->assertTrue(is_bool(Praxigento_LoginAs_Config::cfgGeneralLogEvents()));
+        // UI
+        $this->assertTrue(is_bool(Praxigento_LoginAs_Config::cfgUiCustomersGridActionEnabled()));
+        $this->assertTrue(is_bool(Praxigento_LoginAs_Config::cfgUiOrdersGridColumnEnabled()));
     }
 
-    public function test_all()
+    /**
+     * Test default accessors for basic Magento components.
+     */
+    public function test_defaults()
     {
-        $log = Praxigento_LoginAs_Model_Logger::getLogger($this);
-        $log->trace('trace');
-        $log->debug('debug');
-        $log->info('info');
-        $log->warn('warn');
-        $log->error('error');
-        $log->fatal('fatal');
-        $log->trace('trace', new Exception('test trace error'));
-        $log->debug('debug', new Exception('test debug error'));
-        $log->info('info', new Exception('test info error'));
-        $log->warn('warn', new Exception('test warn error'));
-        $log->error('error', new Exception('test error error'));
-        $log->fatal('fatal', new Exception('test fatal error'));
+        $helper = Praxigento_LoginAs_Config::helper();
+        $this->assertTrue($helper instanceof Mage_Core_Helper_Abstract);
     }
 
 }
