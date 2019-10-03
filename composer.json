@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Praxigento_LoginAs",
+    "name": "OpenMageModuleFostering\/Praxigento_LoginAs",
     "type": "magento-module",
     "license": "Apache-Software-License",
     "homepage": "",
     "description": "Login as Customer by Praxigento",
     "authors": [
-    {
-        "name": "Alex Gusev",
-        "email": "support@praxigento.com"
-    }
-],
+        {
+            "name": "Alex Gusev",
+            "email": "support@praxigento.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
